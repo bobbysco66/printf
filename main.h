@@ -11,12 +11,13 @@
  */
 typedef struct print_all
 {
-  char all;
-  void (*func)(va_list arguments);
+  char *all;
+  int (*f)(va_list x);
 }print_t; 
 
 int _putchar(char c);
 int _printf(const char *format, ...);
 int print_c(va_list c);
 int print_s(va_list s);
+int print_perc(va_list list);
 #endif

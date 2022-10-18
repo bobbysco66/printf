@@ -8,16 +8,23 @@
  */
 int print_s(va_list s)
 {
-  char *str = va_arg(s, char *);
-  int i = 0;
+  int i;
+  char *ptr = va_arg(s, char *);
+  char *ptrNULL = "(null)";
 
-  if (str == NULL)
+  if (ptr == NULL)
     {
-    str = "(null)";
+      for (i = 0; ptrNULL[i] != '\0'; i++)
+	{
+	  _putchar(ptrNULL[i]);
+	}
     }
-  while (str[i])
+  else
     {
-    _putchar(str[i++]);
-    }
-    return (i);
+      for (i = 0; ptr[i] != '\0'; i++)
+	{
+	  _putchar(ptr[i]);
+	}
+}
+return (i);
 }

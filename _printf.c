@@ -1,29 +1,27 @@
-#include "main.h"
+#include "test_main.h"
 
 /**
- * _format - checks if there is a valid format specifier
- * @format: possible valid format specifier
+ * _function - checks if there is a valid format specifier
+ * @c: possible valid format specifier
  * Return: pointer to valid function or NULL
  */
-int (*_format(const char *format))(va_list)
+int (*_function(char c))(va_list a)
 {
-int i;
-// Created a menu of the different possible conversion specifiers
-print_t menu[] = {
-		{"c", print_c},
-		{"s", print_s},
-		{NULL, NULL}
-};
-// This code will select the specifier that matches with the user input
-//Returns an int
-for (i = 0; menu[i].all != NULL; i++)
-{
-if(*(menu[i].t) == *format)
-{
-break;
-}
-}
-return (menu[i].f);
+  int i;
+  print_t menu[] = {
+		    {"c", print_c},
+		    {"s", print_s},
+		    {"%", print_perc},
+		    {NULL, NULL}
+  };
+  for (i = 0; menu[i].all != NULL; i++)
+    {
+      if(menu[i].all[0] == c)
+	{
+	  return (menu[i].f);
+	}
+    }
+  return (NULL);
 }
 
 
@@ -35,45 +33,40 @@ return (menu[i].f);
 
 int _printf(const char *format, ...)
 {
-va_list argptr;
-unsigned  int i, count = 0;
-if (format == NULL)
-{
-return (-1);
-}
-va_start(argptr, format);
-while( *format != '\0' )
-{
-  if (format[i] != '%')
+  va_list argptr;
+  int i, count = 0;
+  int (*g)(va_list);
+  if (format == NULL)
     {
-      _putchar(format[i]);
-      counter++;
-      i++;
+      return (-1);
     }
-  else
+  va_start(argptr, format);
+  for (i = 0; format[i] != '\0'; i++)
     {
-      if (format[i + 1] == '%')
+      if (format[i] != '%')
 	{
-	  _putchar('%');
-	  counter++;
-	  i += 2;
-	  continue;
+	  _putchar(format[i]);
 	}
-      else
+      else if (format[i] == '%' && format[i + 1] == '\0')
 	{
-	  f = _format(&format[i + 1]);
-	  if (f == NULL)
+	  return (-1);
+	}
+      else if (format[i] == '%' && format[i + 1] != '\0')
+	{
+	  g = _function(format[i + 1]);
+	  if (g == NULL)
 	    {
-	      return (-1);
+	      _putchar(format[i]);
 	    }
-	  i += 2;
-	  counter += f(argptr);
-	  continue;
+	  else
+	    {
+	      count = (count + g(argptr)) - 1;
+	      i++;
+	    }
 	}
-
-    }
-  i++;
-}
-va_end(argptr);
-return (counter);
+      count++;
+    }      
+      
+  va_end(argptr);
+  return (count);
 }
