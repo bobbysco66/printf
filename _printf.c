@@ -7,24 +7,22 @@
  */
 int (*_function(char c))(va_list a)
 {
-  int i;
-  print_t menu[] = {
-		    {"c", print_c},
-		    {"s", print_s},
-		    {"%", print_perc},
-		    {NULL, NULL}
-  };
-  for (i = 0; menu[i].all != NULL; i++)
-    {
-      if(menu[i].all[0] == c)
-	{
-	  return (menu[i].f);
-	}
-    }
-  return (NULL);
+int i;
+print_t menu[] = {
+{"c", print_c},
+{"s", print_s},
+{"%", print_perc},
+{NULL, NULL}
+};
+for (i = 0; menu[i].all != NULL; i++)
+{
+if (menu[i].all[0] == c)
+{
+return (menu[i].f);
 }
-
-
+}
+return (NULL);
+}
 /**
  * _printf -  produces output according to a format
  * @format: input string
@@ -33,40 +31,39 @@ int (*_function(char c))(va_list a)
 
 int _printf(const char *format, ...)
 {
-  va_list argptr;
-  int i, count = 0;
-  int (*g)(va_list);
-  if (format == NULL)
-    {
-      return (-1);
-    }
-  va_start(argptr, format);
-  for (i = 0; format[i] != '\0'; i++)
-    {
-      if (format[i] != '%')
-	{
-	  _putchar(format[i]);
-	}
-      else if (format[i] == '%' && format[i + 1] == '\0')
-	{
-	  return (-1);
-	}
-      else if (format[i] == '%' && format[i + 1] != '\0')
-	{
-	  g = _function(format[i + 1]);
-	  if (g == NULL)
-	    {
-	      _putchar(format[i]);
-	    }
-	  else
-	    {
-	      count = (count + g(argptr)) - 1;
-	      i++;
-	    }
-	}
-      count++;
-    }      
-      
-  va_end(argptr);
-  return (count);
+va_list argptr;
+int i, count = 0;
+int (*g)(va_list);
+if (format == NULL)
+{
+return (-1);
+}
+va_start(argptr, format);
+for (i = 0; format[i] != '\0'; i++)
+{
+if (format[i] != '%')
+{
+_putchar(format[i]);
+}
+else if (format[i] == '%' && format[i + 1] == '\0')
+{
+return (-1);
+}
+else if (format[i] == '%' && format[i + 1] != '\0')
+{
+g = _function(format[i + 1]);
+if (g == NULL)
+{
+_putchar(format[i]);
+}
+else
+{
+count = (count + g(argptr)) - 1;
+i++;
+}
+}
+count++;
+}
+va_end(argptr);
+return (count);
 }
