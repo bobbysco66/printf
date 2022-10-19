@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * _function - checks if there is a valid format specifier
  * @c: possible valid format specifier
