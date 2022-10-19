@@ -1,4 +1,4 @@
-#include "test_main.h"
+#include "main.h"
 
 /**
  * _function - checks if there is a valid format specifier
