@@ -11,7 +11,7 @@ print_t menu[] = {
 {"c", print_c},
 {"s", print_s},
 {"%", print_perc},
-{"i", print_i},
+{"i", print_d},
 {"d", print_d},
 {NULL, NULL}
 };
