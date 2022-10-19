@@ -12,6 +12,8 @@ int (*_function(char c))(va_list a)
 		    {"c", print_c},
 		    {"s", print_s},
 		    {"%", print_perc},
+		    {"i", print_i},
+		    {"d", print_d},
 		    {NULL, NULL}
   };
   for (i = 0; menu[i].all != NULL; i++)
